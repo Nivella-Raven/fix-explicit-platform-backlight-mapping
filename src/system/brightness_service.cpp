@@ -803,7 +803,7 @@ struct BrightnessService::Impl {
       const WaylandOutput* output = findOutputByConnector(wayland, connectorName);
 
       // Honor an explicit output-to-backlight mapping when automatic DRM/sysfs connector discovery fails.
-      if (connectorName.empty() || output == nullptr) {
+      if (!resolution.exactDrmMatch || connectorName.empty() || output == nullptr) {
         for (const auto& candidateOutput : wayland.outputs()) {
           if (!candidateOutput.done || candidateOutput.connectorName.empty()) {
             continue;
